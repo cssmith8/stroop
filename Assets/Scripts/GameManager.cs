@@ -11,14 +11,15 @@ public class GameManager : MonoBehaviour, InputListener
         switch (activePuzzle.solution)
         {
             case true:
-                //Debug.Log("Submitted - Correct");
+                RunProgression.instance.OnCorrectSubmission();
                 OnCorrectResponse();
                 break;
             case false:
-                //Debug.Log("Submitted - Incorrect");
+                RunProgression.instance.OnIncorrectSubmission();
                 OnIncorrectResponse();
                 break;
         }
+        RunProgression.instance.OnSubmit();
         OnAnyReponse();
     }
 
@@ -27,37 +28,43 @@ public class GameManager : MonoBehaviour, InputListener
         switch (activePuzzle.solution)
         {
             case true:
-                //Debug.Log("Rejected - Incorrect");
+                RunProgression.instance.OnIncorrectRejection();
                 OnIncorrectResponse();
                 break;
             case false:
-                //Debug.Log("Rejected - Correct");
+                RunProgression.instance.OnCorrectRejection();
                 OnCorrectResponse();
                 break;
         }
+        RunProgression.instance.OnReject();
+        OnAnyReponse();
+    }
+
+    public void OnThird()
+    {
+        RunProgression.instance.OnThird();
+        OnIncorrectResponse();
         OnAnyReponse();
     }
 
     private void OnCorrectResponse()
     {
+        RunProgression.instance.OnCorrect();
         HealthManager.instance.ChangeHealth(1);
     }
 
     private void OnIncorrectResponse()
     {
+        RunProgression.instance.OnIncorrect();
         HealthManager.instance.ChangeHealth(-1);
     }
 
     private void OnAnyReponse()
     {
+        RunProgression.instance.OnAny();
         HealthManager.instance.UpdateHealthDisplay();
         Destroy(activePuzzle.gameObject);
         activePuzzle = PuzzleCreator.instance.CreatePuzzle();
-    }
-
-    public void OnThird()
-    {
-
     }
 
     // Start is called before the first frame update

@@ -13,6 +13,7 @@ public class SampleBuff : Buff
     public override void OnSubmit()
     {
         Debug.Log("Sample Buff On Submit");
+        HealthManager.instance.ChangeHealth(1);
     }
 
     public override void OnReject()
@@ -38,5 +39,25 @@ public class SampleBuff : Buff
     public override void OnAny()
     {
         Debug.Log("Sample Buff On Any");
+    }
+
+    public override void OnCorrectSubmission()
+    {
+        Debug.Log("Sample Buff On Correct Submission");
+    }
+
+    public override void OnIncorrectSubmission()
+    {
+        Debug.Log("Sample Buff On Incorrect Submission");
+    }
+
+    public override void OnCorrectRejection()
+    {
+        Debug.Log("Sample Buff On Correct Rejection");
+    }
+    
+    public override void OnIncorrectRejection()
+    {
+        Debug.Log("Sample Buff On Incorrect Rejection");
     }
 }
