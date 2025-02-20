@@ -13,7 +13,8 @@ public class SampleBuff : Buff
     public override void OnSubmit()
     {
         Debug.Log("Sample Buff On Submit");
-        HealthManager.instance.ChangeHealth(1);
+        int value = NumUpgrades(Upgrade.RED);
+        HealthManager.instance.ChangeHealth(1 + value);
     }
 
     public override void OnReject()
