@@ -31,53 +31,14 @@ public class Buff
         return count;
     }
 
-    public virtual void OnSubmit()
-    {
-        Debug.Log("Buff On Submit");
-    }
-
-    public virtual void OnReject()
-    {
-        Debug.Log("Buff On Reject");
-    }
-
-    public virtual void OnThird()
-    {
-        Debug.Log("Buff On Third");
-    }
-
-    public virtual void OnCorrect()
-    {
-        Debug.Log("Buff On Correct");
-    }
-
-    public virtual void OnIncorrect()
-    {
-        Debug.Log("Buff On Incorrect");
-    }
-
-    public virtual void OnAny()
-    {
-        Debug.Log("Buff On Any");
-    }
-
-    public virtual void OnCorrectSubmission()
-    {
-        Debug.Log("Buff On Correct Submission");
-    }
-
-    public virtual void OnIncorrectSubmission()
-    {
-        Debug.Log("Buff On Incorrect Submission");
-    }
-
-    public virtual void OnCorrectRejection()
-    {
-        Debug.Log("Buff On Correct Rejection");
-    }
-
-    public virtual void OnIncorrectRejection()
-    {
-        Debug.Log("Buff On Incorrect Rejection");
-    }
+    public virtual void OnSubmit() { }
+    public virtual void OnReject() { }
+    public virtual void OnThird() { }
+    public virtual void OnCorrect() { }
+    public virtual void OnIncorrect() { }
+    public virtual void OnAny() { }
+    public virtual void OnCorrectSubmission() { }
+    public virtual void OnIncorrectSubmission() { }
+    public virtual void OnCorrectRejection() { }
+    public virtual void OnIncorrectRejection() { }
 }

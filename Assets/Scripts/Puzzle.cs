@@ -9,7 +9,10 @@ public enum PuzzleColor
     RED,
     BLUE,
     GREEN,
-    YELLOW
+    YELLOW,
+    PURPLE,
+    CYAN,
+    WHITE,
 }
 
 public class Puzzle : MonoBehaviour
@@ -19,6 +22,29 @@ public class Puzzle : MonoBehaviour
     private PuzzleColor color = PuzzleColor.RED;
 
     private TMP_Text textComponent;
+
+    public static string GetColorString(PuzzleColor color)
+    {
+        switch (color)
+        {
+            case PuzzleColor.RED:
+                return "RED";
+            case PuzzleColor.BLUE:
+                return "BLUE";
+            case PuzzleColor.GREEN:
+                return "GREEN";
+            case PuzzleColor.YELLOW:
+                return "YELLOW";
+            case PuzzleColor.PURPLE:
+                return "PURPLE";
+            case PuzzleColor.CYAN:
+                return "CYAN";
+            case PuzzleColor.WHITE:
+                return "WHITE";
+            default:
+                return "RED";
+        }
+    }
 
     //set text
     public void SetText(string text)

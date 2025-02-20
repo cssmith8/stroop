@@ -25,53 +25,37 @@ public class PuzzleCreator : MonoBehaviour
         }
     }
 
+    private PuzzleColor GetRandomPuzzleColor()
+    {
+        List<PuzzleColor> colors = RunProgression.instance.GetPuzzleColors();
+        return colors[Random.Range(0, colors.Count)];
+    }
+
+    private PuzzleColor GetRandomPuzzleColorExcept(PuzzleColor color)
+    {
+        List<PuzzleColor> colors = RunProgression.instance.GetPuzzleColors();
+        colors.Remove(color);
+        return colors[Random.Range(0, colors.Count)];
+    }   
+
     public Puzzle CreatePuzzle()
     {
         GameObject puzzleObject = Instantiate(puzzlePrefab, transform);
         Puzzle puzzle = puzzleObject.GetComponent<Puzzle>();
 
         //randomize color
-        PuzzleColor c = Random.Range(0, 4) switch
-        {
-            0 => PuzzleColor.RED,
-            1 => PuzzleColor.BLUE,
-            2 => PuzzleColor.GREEN,
-            3 => PuzzleColor.YELLOW,
-            _ => PuzzleColor.RED,
-        };
+        PuzzleColor c = GetRandomPuzzleColor();
+        puzzle.SetColor(c);
 
         //randomize solution
         bool s = Random.Range(0, 2) == 0;
-
-        puzzle.SetColor(c);
         puzzle.solution = s;
-        switch (c)
-        {
-            case PuzzleColor.RED:
-                if (s)
-                    puzzle.SetText("RED");
-                else
-                    puzzle.SetText("BLUE");
-                break;
-            case PuzzleColor.BLUE:
-                if (s)
-                    puzzle.SetText("BLUE");
-                else
-                    puzzle.SetText("RED");
-                break;
-            case PuzzleColor.GREEN:
-                if (s)
-                    puzzle.SetText("GREEN");
-                else
-                    puzzle.SetText("YELLOW");
-                break;
-            case PuzzleColor.YELLOW:
-                if (s)
-                    puzzle.SetText("YELLOW");
-                else
-                    puzzle.SetText("GREEN");
-                break;
-        }
+
+        //set text
+        if (s)
+            puzzle.SetText(Puzzle.GetColorString(c));
+        else
+            puzzle.SetText(Puzzle.GetColorString(GetRandomPuzzleColorExcept(c)));
         
         puzzleObject.transform.SetParent(gameCanvas.transform, false);
         return puzzle;

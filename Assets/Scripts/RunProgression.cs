@@ -27,6 +27,12 @@ public class RunProgression : MonoBehaviour
         buffs.Add(new SampleBuff());
     }
 
+    public List<PuzzleColor> GetPuzzleColors()
+    {
+        //todo: use debuffs to modify this list
+        return new List<PuzzleColor> { PuzzleColor.RED, PuzzleColor.BLUE, PuzzleColor.GREEN, PuzzleColor.YELLOW };
+    }
+
     public void OnSubmit()
     {
         foreach (Buff buff in buffs)
