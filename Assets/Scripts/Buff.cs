@@ -18,7 +18,12 @@ public class Buff
 
     public List<Upgrade> upgrades = new List<Upgrade>();
 
-    protected BuffDisplay display;
+    private BuffDisplay display;
+
+    protected void PlayAnimation()
+    {
+        if (display) display.PlayAnimation();
+    }
 
     protected int NumUpgrades(Upgrade type)
     {

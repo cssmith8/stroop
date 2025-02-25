@@ -17,4 +17,8 @@ public class BuffDisplay : MonoBehaviour
     {
         
     }
+
+    public void PlayAnimation() {
+        Debug.Log("Play Animation");
+    }
 }
