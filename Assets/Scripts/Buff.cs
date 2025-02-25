@@ -18,6 +18,8 @@ public class Buff
 
     public List<Upgrade> upgrades = new List<Upgrade>();
 
+    protected BuffDisplay display;
+
     protected int NumUpgrades(Upgrade type)
     {
         int count = 0;
