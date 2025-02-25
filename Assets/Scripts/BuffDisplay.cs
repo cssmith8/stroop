@@ -63,9 +63,9 @@ public class BuffDisplay : MonoBehaviour, DragListener
     {
         bool dragFlag = drag.draggable;
         drag.draggable = false;
-        while (Vector2.Distance(transform.position, anchor.transform.position) > 0.04f)
+        while (Vector2.Distance(transform.position, anchor.transform.position) > 0.02f)
         {
-            transform.position = Vector2.Lerp(transform.position, anchor.transform.position, Mathf.Clamp(Time.deltaTime * 8f, 0f, 0.9f) + Time.deltaTime);
+            transform.position = Vector2.Lerp(transform.position, anchor.transform.position, Mathf.Clamp(Time.deltaTime * 8f, 0f, 1f - Time.deltaTime * 2f) + Time.deltaTime * 2f);
             yield return null;
         }
         transform.position = anchor.transform.position;
