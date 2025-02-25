@@ -13,7 +13,7 @@ public class BuffSidebar : MonoBehaviour
     [SerializeField]
     private GameObject anchors, buffAnchor;
 
-    private List<GameObject> buffAnchors = new List<GameObject>();
+    private List<GameObject> buffAnchors = new();
 
 
     // Start is called before the first frame update
@@ -33,7 +33,9 @@ public class BuffSidebar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.A)) AddAnchor();
+        if (Input.GetKeyDown(KeyCode.R)) RemoveAnchor();
+
     }
 
     private void AddAnchor()
@@ -61,13 +63,10 @@ public class BuffSidebar : MonoBehaviour
         for (int i = 0; i < buffAnchors.Count; i++)
         {
             GameObject anchor = buffAnchors[i];
-            if (i == 0)
+            int defaultMax = 5;
+            if (buffAnchors.Count <= defaultMax)
             {
-                anchor.transform.position = firstSlot.position;
-            }
-            else if (i == buffAnchors.Count - 1)
-            {
-                anchor.transform.position = lastSlot.position;
+                anchor.transform.position = Vector3.Lerp(firstSlot.position, lastSlot.position, (float)i / (defaultMax - 1));
             }
             else
             {

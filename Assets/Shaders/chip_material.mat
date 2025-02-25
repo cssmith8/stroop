@@ -52,7 +52,7 @@ Material:
     - _Distance: 0.035
     m_Colors:
     - _Color: {r: 0, g: 0, b: 1, a: 0}
-    - _Direction: {r: -10.741455, g: 202.72565, b: 0, a: 0}
+    - _Direction: {r: -790.06537, g: 269.6955, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1492655883639834210
 MonoBehaviour:
