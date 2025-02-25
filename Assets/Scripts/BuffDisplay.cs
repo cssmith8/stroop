@@ -1,42 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class BuffDisplay : MonoBehaviour
+public class BuffDisplay : MonoBehaviour, DragListener
 {
     public Buff buff = new SampleBuff();
-    private bool isDragging = false;
-    private Vector3 offset;
+    private Drag drag;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        drag = GetComponent<Drag>();
+        drag.RegisterListener(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if the mouse is over the buff display
-        if (isDragging)
-        {
-            transform.position = offset + Input.mousePosition;
-        }
+
+    }
+
+    public void OnBeginDrag()
+    {
+        Debug.Log("Begin Drag");
+    }
+
+    public void OnEndDrag()
+    {
+        Debug.Log("End Drag");
     }
 
     public void PlayAnimation()
     {
         Debug.Log("Play Animation");
-    }
-
-    void OnMouseDown()
-    {
-        isDragging = true;
-        offset = transform.position - Input.mousePosition;
-    }
-
-    void OnMouseUp()
-    {
-        isDragging = false;
     }
 }

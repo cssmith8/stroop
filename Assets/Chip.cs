@@ -16,8 +16,8 @@ public class Chip : MonoBehaviour
     void Update()
     {
         //vector between the chip and the mouse
-        Vector2 direction = (Vector2)Input.mousePosition - (((Vector2)transform.position + new Vector2(8.9f, 5f)) * (Screen.height / 10f));
-        Debug.Log(((Vector2)transform.position + new Vector2(8.9f, 5f)) * (Screen.height / 10f));
-        m_Material.SetVector("_Direction", direction);
+        //Vector2 direction = (Vector2)Input.mousePosition - (((Vector2)transform.position + new Vector2(8.9f, 5f)) * (Screen.height / 10f));
+        //Debug.Log(((Vector2)transform.position + new Vector2(8.9f, 5f)) * (Screen.height / 10f));
+        //m_Material.SetVector("_Direction", direction);
     }
 }
