@@ -13,7 +13,7 @@ public class Drag : MonoBehaviour, IDragHandler
 {
     private Canvas canvas;
     private bool isDraggingNow = false;
-    private bool draggable = true;
+    public bool draggable = true;
     private RectTransform rectTransform;
     private List<DragListener> listeners = new();
 
@@ -39,11 +39,6 @@ public class Drag : MonoBehaviour, IDragHandler
         return isDraggingNow;
     }
 
-    public void SetDraggable(bool draggable)
-    {
-        this.draggable = draggable;
-    }
-
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
         if (draggable)
@@ -65,10 +60,6 @@ public class Drag : MonoBehaviour, IDragHandler
     {
         while (Input.GetKey(KeyCode.Mouse0))
         {
-            if (!draggable)
-            {
-                break;
-            }
             yield return null;
         }
         isDraggingNow = false;
