@@ -5,8 +5,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuffDisplay : MonoBehaviour, DragListener
+public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField]
+    private GameObject descPrefab;
+    private GameObject activeDesc;
+    [HideInInspector]
     public GameObject anchor;
     public Buff buff = new SampleBuff();
     private Drag drag;
@@ -26,10 +30,40 @@ public class BuffDisplay : MonoBehaviour, DragListener
 
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (BuffSidebar.instance.rearranging) return;
+        CreateDesc();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        DestroyDesc();
+    }
+
+    private void CreateDesc() {
+        if (activeDesc == null)
+        {
+            activeDesc = Instantiate(descPrefab, transform.GetChild(0).position, Quaternion.identity);
+            activeDesc.transform.SetParent(transform.GetChild(0));
+            activeDesc.transform.localPosition = Vector3.zero;
+            activeDesc.transform.localScale = Vector3.one;
+        }
+    }
+
+    private void DestroyDesc()
+    {
+        if (activeDesc != null)
+        {
+            Destroy(activeDesc);
+            activeDesc = null;
+        }
+    }
+
     public void OnBeginDrag()
     {
-        //Debug.Log("Begin Drag");
-        //BuffSidebar.instance.StartBuffRearrange(gameObject);
+        DestroyDesc();
+        BuffSidebar.instance.rearranging = true;
     }
 
     public void DuringDragUpdate()
@@ -58,6 +92,7 @@ public class BuffDisplay : MonoBehaviour, DragListener
             else
             {
                 anchor = closestAnchor;
+                transform.SetParent(anchor.transform);
             }
         }
     }
@@ -74,10 +109,7 @@ public class BuffDisplay : MonoBehaviour, DragListener
 
     public void OnEndDrag()
     {
-        //Debug.Log("End Drag");
         BuffSidebar.instance.rearranging = false;
-        //if  the coroutine is not already running
-
         StartCoroutine(ReturnToAnchor());
     }
 

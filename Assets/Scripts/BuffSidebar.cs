@@ -85,25 +85,7 @@ public class BuffSidebar : MonoBehaviour
         newAnchor.transform.localPosition = Vector3.zero;
         UpdateAnchors();
     }
-    /*
-        public void StartBuffRearrange(GameObject DraggingBuffDisplay)
-        {
-            rearranging = true;
-            for (int i = 0; i < buffAnchors.Count; i++)
-            {
-                if (buffAnchors[i].transform.childCount > 0)
-                {
-                    GameObject buff = buffAnchors[i].transform.GetChild(0).gameObject;
-                    if (buff == DraggingBuffDisplay) continue;
-                    BuffDisplay buffDisplay = buff.GetComponent<BuffDisplay>();
-                    if (buffDisplay != null)
-                    {
-                        buffDisplay.OnBuffRearrange();
-                    }
-                }
-            }
-        }
-    */
+    
     private void RemoveAnchor()
     {
         if (buffAnchors.Count > 0)

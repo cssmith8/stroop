@@ -20,6 +20,21 @@ public class Buff
 
     private BuffDisplay display;
 
+    public static string RedWord(string word)
+    {
+        return "<color=#ff0000>" + word + "</color>";
+    }
+
+    public static string GreenWord(string word)
+    {
+        return "<color=#00ff00>" + word + "</color>";
+    }
+
+    public static string BlueWord(string word)
+    {
+        return "<color=#0000ff>" + word + "</color>";
+    }
+
     protected void PlayAnimation()
     {
         if (display) display.PlayAnimation();
