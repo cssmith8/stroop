@@ -7,6 +7,7 @@ public interface DragListener
 {
     void OnBeginDrag();
     void OnEndDrag();
+    void DuringDragUpdate();
 }
 
 public class Drag : MonoBehaviour, IDragHandler
@@ -14,6 +15,7 @@ public class Drag : MonoBehaviour, IDragHandler
     private Canvas canvas;
     private bool isDraggingNow = false;
     public bool draggable = true;
+    private bool draggablitiyPaused = false;
     private RectTransform rectTransform;
     private List<DragListener> listeners = new();
 
@@ -39,17 +41,24 @@ public class Drag : MonoBehaviour, IDragHandler
         return isDraggingNow;
     }
 
+    public void PauseDraggability()
+    {
+        draggablitiyPaused = true;
+    }
+
+    public void ResumeDraggability()
+    {
+        draggablitiyPaused = false;
+    }
+
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
-        if (draggable)
+        if (draggable && !draggablitiyPaused)
         {
             if (!isDraggingNow)
             {
                 isDraggingNow = true;
-                foreach (DragListener listener in listeners)
-                {
-                    listener.OnBeginDrag();
-                }
+                listeners.ForEach(listener => listener.OnBeginDrag());
                 StartCoroutine(DragCoroutine());
             }
             rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
@@ -60,12 +69,10 @@ public class Drag : MonoBehaviour, IDragHandler
     {
         while (Input.GetKey(KeyCode.Mouse0))
         {
+            listeners.ForEach(listener => listener.DuringDragUpdate());
             yield return null;
         }
         isDraggingNow = false;
-        foreach (DragListener listener in listeners)
-        {
-            listener.OnEndDrag();
-        }
+        listeners.ForEach(listener => listener.OnEndDrag());
     }
 }

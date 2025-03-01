@@ -58,9 +58,23 @@ public class BuffSidebar : MonoBehaviour
         return null;
     }
 
+    public List<GameObject> GetAllAnchors()
+    {
+        return buffAnchors;
+    }
+
     public int GetAnchorIndex(GameObject anchor)
     {
         return buffAnchors.IndexOf(anchor);
+    }
+
+    public BuffDisplay GetBuffDisplayOnAnchor(GameObject anchor)
+    {
+        if (anchor.transform.childCount > 0)
+        {
+            return anchor.transform.GetChild(0).GetComponent<BuffDisplay>();
+        }
+        return null;
     }
 
     private void AddAnchor()
@@ -71,25 +85,25 @@ public class BuffSidebar : MonoBehaviour
         newAnchor.transform.localPosition = Vector3.zero;
         UpdateAnchors();
     }
-
-    public void StartBuffRearrange(GameObject DraggingBuffDisplay)
-    {
-        rearranging = true;
-        for (int i = 0; i < buffAnchors.Count; i++)
+    /*
+        public void StartBuffRearrange(GameObject DraggingBuffDisplay)
         {
-            if (buffAnchors[i].transform.childCount > 0)
+            rearranging = true;
+            for (int i = 0; i < buffAnchors.Count; i++)
             {
-                GameObject buff = buffAnchors[i].transform.GetChild(0).gameObject;
-                if (buff == DraggingBuffDisplay) continue;
-                BuffDisplay buffDisplay = buff.GetComponent<BuffDisplay>();
-                if (buffDisplay != null)
+                if (buffAnchors[i].transform.childCount > 0)
                 {
-                    buffDisplay.OnBuffRearrange();
+                    GameObject buff = buffAnchors[i].transform.GetChild(0).gameObject;
+                    if (buff == DraggingBuffDisplay) continue;
+                    BuffDisplay buffDisplay = buff.GetComponent<BuffDisplay>();
+                    if (buffDisplay != null)
+                    {
+                        buffDisplay.OnBuffRearrange();
+                    }
                 }
             }
         }
-    }
-
+    */
     private void RemoveAnchor()
     {
         if (buffAnchors.Count > 0)
