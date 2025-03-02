@@ -48,6 +48,8 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
             activeDesc.transform.SetParent(transform.GetChild(0));
             activeDesc.transform.localPosition = Vector3.zero;
             activeDesc.transform.localScale = Vector3.one;
+
+            activeDesc.GetComponent<BuffDescription>().SetText(buff.GetDescription());
         }
     }
 

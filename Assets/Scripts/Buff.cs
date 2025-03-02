@@ -14,7 +14,11 @@ public enum Upgrade
 public class Buff
 {
     public string name = "Buff";
-    public string description = "Buff Description";
+
+    public virtual string GetDescription()
+    {
+        return "Buff description";
+    }
 
     public List<Upgrade> upgrades = new List<Upgrade>();
 

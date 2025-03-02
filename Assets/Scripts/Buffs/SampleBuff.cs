@@ -7,7 +7,24 @@ public class SampleBuff : Buff
     public SampleBuff()
     {
         name = "Sample Buff";
-        description = "Sample Buff Description";
+    }
+
+    public override string GetDescription()
+    {
+        string value = "1";
+        switch (NumUpgrades(Upgrade.RED))
+        {
+            case 1:
+                value = "2";
+                break;
+            case 2:
+                value = "3";
+                break;
+            case 3:
+                value = "4";
+                break;
+        }
+        return "Heals you for " + RedWord(value) + " health upon submission.";
     }
 
     public override void OnSubmit()
