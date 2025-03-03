@@ -10,7 +10,8 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private GameObject circle, bar;
 
-    public float timeMax, timeRemaining;
+    public float timeMax = 10f;
+    public float timeRemaining = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,18 +29,22 @@ public class Timer : MonoBehaviour
         timeRemaining = timeMax;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void BeginTimer(float time)
     {
-        if (timeRemaining > 0)
+        timeMax = time;
+        timeRemaining = timeMax;
+        StartCoroutine(TimerTicking());
+    }
+
+    IEnumerator TimerTicking()
+    {
+        while (timeRemaining > 0)
         {
             timeRemaining -= Time.deltaTime;
             UpdateProgressBar();
+            yield return null;
         }
-        else
-        {
-            timeRemaining = 0;
-        }
+        GameManager.OnTimerExpire();
     }
 
     private void UpdateProgressBar()

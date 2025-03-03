@@ -2,12 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameState
+{
+    RoundStart,
+    Round,
+    Stats,
+    Buffs,
+    Debuffs
+}
+
 public class GameManager : MonoBehaviour, InputListener
 {
     public Puzzle activePuzzle;
 
+    public static GameState gameState = GameState.Round;
+
+//fix this
+    [SerializeField]
+    private static GameObject statsPanel;
+
     public void OnSubmit()
     {
+        if (gameState != GameState.Round) return;
+        if (activePuzzle == null) return;
         switch (activePuzzle.solution)
         {
             case true:
@@ -25,6 +42,8 @@ public class GameManager : MonoBehaviour, InputListener
 
     public void OnReject()
     {
+        if (gameState != GameState.Round) return;
+        if (activePuzzle == null) return;
         switch (activePuzzle.solution)
         {
             case true:
@@ -42,6 +61,8 @@ public class GameManager : MonoBehaviour, InputListener
 
     public void OnThird()
     {
+        if (gameState != GameState.Round) return;
+        if (activePuzzle == null) return;
         RunProgression.instance.OnThird();
         OnIncorrectResponse();
         OnAnyReponse();
@@ -50,7 +71,7 @@ public class GameManager : MonoBehaviour, InputListener
     private void OnCorrectResponse()
     {
         RunProgression.instance.OnCorrect();
-        HealthManager.instance.ChangeHealth(1);
+        //HealthManager.instance.ChangeHealth(1);
     }
 
     private void OnIncorrectResponse()
@@ -78,11 +99,28 @@ public class GameManager : MonoBehaviour, InputListener
     {
         InputManager.instance.RegisterListener(this);
         activePuzzle = PuzzleCreator.instance.CreatePuzzle();
+        Timer.instance.BeginTimer(10f);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public static void OnTimerExpire() {
+        if (gameState == GameState.Round)
+        {
+            gameState = GameState.Stats;
+            GameObject go = Instantiate(statsPanel, GameObject.FindGameObjectWithTag("GameCanvas").transform);
+        }
+    }
+
+    public static void OnStatsContinue() {
+        if (gameState == GameState.Stats)
+        {
+            gameState = GameState.Buffs;
+            Debug.Log("real");
+        }
     }
 }
