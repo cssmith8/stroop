@@ -242,6 +242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activePuzzle: {fileID: 0}
+  gameState: 1
+  statsPanel: {fileID: 843639698261443123, guid: c8ce35688a4269f42a69dd747677a722, type: 3}
 --- !u!4 &40300052
 Transform:
   m_ObjectHideFlags: 0

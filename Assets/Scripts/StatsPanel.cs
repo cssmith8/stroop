@@ -18,6 +18,6 @@ public class StatsPanel : MonoBehaviour
 
     public void ContinueButton() 
     {
-        GameManager.OnStatsContinue();
+        GameManager.instance.OnStatsContinue();
     }
 }

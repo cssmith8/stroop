@@ -44,7 +44,7 @@ public class Timer : MonoBehaviour
             UpdateProgressBar();
             yield return null;
         }
-        GameManager.OnTimerExpire();
+        GameManager.instance.OnTimerExpire();
     }
 
     private void UpdateProgressBar()

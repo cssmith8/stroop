@@ -13,13 +13,24 @@ public enum GameState
 
 public class GameManager : MonoBehaviour, InputListener
 {
+    public static GameManager instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public Puzzle activePuzzle;
 
-    public static GameState gameState = GameState.Round;
+    public GameState gameState = GameState.Round;
 
-//fix this
     [SerializeField]
-    private static GameObject statsPanel;
+    private GameObject statsPanel;
 
     public void OnSubmit()
     {
@@ -108,7 +119,7 @@ public class GameManager : MonoBehaviour, InputListener
         
     }
 
-    public static void OnTimerExpire() {
+    public void OnTimerExpire() {
         if (gameState == GameState.Round)
         {
             gameState = GameState.Stats;
@@ -116,7 +127,7 @@ public class GameManager : MonoBehaviour, InputListener
         }
     }
 
-    public static void OnStatsContinue() {
+    public void OnStatsContinue() {
         if (gameState == GameState.Stats)
         {
             gameState = GameState.Buffs;
