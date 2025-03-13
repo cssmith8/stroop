@@ -5,29 +5,11 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public static Timer instance;
-
     [SerializeField]
     private GameObject circle, bar;
 
     public float timeMax = 10f;
     public float timeRemaining = 10f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        timeMax = 10f;
-        timeRemaining = timeMax;
-    }
 
     public void BeginTimer(float time)
     {

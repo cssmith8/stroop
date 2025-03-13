@@ -6,6 +6,7 @@ public enum GameState
 {
     RoundStart,
     Round,
+    Lose,
     Stats,
     Buffs,
     Debuffs
@@ -31,6 +32,12 @@ public class GameManager : MonoBehaviour, InputListener
 
     [SerializeField]
     private GameObject statsPanel;
+
+    [SerializeField]
+    private GameObject timerPrefab;
+
+    [HideInInspector]
+    private GameObject stats, timer;
 
     public void OnSubmit()
     {
@@ -96,42 +103,121 @@ public class GameManager : MonoBehaviour, InputListener
         RunProgression.instance.OnAny();
         HealthManager.instance.UpdateHealthDisplay();
         Destroy(activePuzzle.gameObject);
-        activePuzzle = PuzzleCreator.instance.CreatePuzzle();
+        //activePuzzle = PuzzleCreator.instance.CreatePuzzle();
+        RoundOver();
+    }
+
+    private void RoundOver()
+    {
+        UpdateGameState(GameState.Stats);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         Invoke("invoked", 0.5f);
-        
+
     }
 
     void invoked()
     {
         InputManager.instance.RegisterListener(this);
         activePuzzle = PuzzleCreator.instance.CreatePuzzle();
-        Timer.instance.BeginTimer(10f);
+        CreateTimer();
+    }
+
+    private void CreateTimer(float seconds = 10f)
+    {
+        if (timer != null) Destroy(timer);
+        timer = Instantiate(timerPrefab, GameObject.FindGameObjectWithTag("TimerAnchor").transform);
+        timer.GetComponent<Timer>().BeginTimer(seconds);
+    }
+
+    public float GetFractionTimeRemaining()
+    {
+        if (timer == null) return 0;
+        return timer.GetComponent<Timer>().GetFractionTimeRemaining();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void OnTimerExpire() {
+    public void OnTimerExpire()
+    {
         if (gameState == GameState.Round)
         {
-            gameState = GameState.Stats;
-            GameObject go = Instantiate(statsPanel, GameObject.FindGameObjectWithTag("GameCanvas").transform);
+            UpdateGameState(GameState.Lose);
         }
     }
 
-    public void OnStatsContinue() {
+    public void OnStatsContinue()
+    {
         if (gameState == GameState.Stats)
         {
-            gameState = GameState.Buffs;
-            Debug.Log("real");
+            if (stats != null) Destroy(stats);
+            UpdateGameState(GameState.Buffs);
         }
+    }
+
+    private void UpdateGameState(GameState state)
+    {
+        gameState = state;
+        switch (state)
+        {
+            case GameState.RoundStart:
+                OnRoundStart();
+                break;
+            case GameState.Round:
+                OnRound();
+                break;
+            case GameState.Lose:
+                OnLose();
+                break;
+            case GameState.Stats:
+                OnStats();
+                break;
+            case GameState.Buffs:
+                OnBuffs();
+                break;
+            case GameState.Debuffs:
+                OnDebuffs();
+                break;
+        }
+    }
+
+    private void OnRoundStart()
+    {
+        Debug.Log("round start state");
+    }
+
+    private void OnRound()
+    {
+        Debug.Log("round state");
+    }
+
+    private void OnLose()
+    {
+        Destroy(timer);
+        Debug.Log("lose state");
+    }
+
+    private void OnStats()
+    {
+        Destroy(timer);
+        stats = Instantiate(statsPanel, GameObject.FindGameObjectWithTag("GameCanvas").transform);
+        Debug.Log("stats state");
+    }
+
+    private void OnBuffs()
+    {
+        Debug.Log("buffs state");
+    }
+
+    private void OnDebuffs()
+    {
+        Debug.Log("debuffs state");
     }
 }

@@ -25,6 +25,8 @@ public class HealthManager : MonoBehaviour
     [SerializeField]
     private Transform squareSpacing;
 
+    private Vector3 initialHealthSize;
+
     //singleton
     [HideInInspector]
     public static HealthManager instance;
@@ -40,6 +42,7 @@ public class HealthManager : MonoBehaviour
         }
         SetHealth(health);
         UpdateHealthDisplay();
+        initialHealthSize = text.gameObject.transform.localScale;
     }
 
     public void ChangeHealth(int value)
@@ -54,7 +57,7 @@ public class HealthManager : MonoBehaviour
 
     public void UpdateHealthDisplay()
     {
-        text.text = health.ToString();
+        UpdateText();
 
         if (health > squares.Count)
         {
@@ -63,6 +66,27 @@ public class HealthManager : MonoBehaviour
         else if (health < squares.Count)
         {
             for (int _ = squares.Count; _ > health; _--) RemoveSquare();
+        }
+    }
+
+    private void UpdateText()
+    {
+        if (text.text != health.ToString())
+        {
+            text.text = health.ToString();
+            StartCoroutine(UpdateTextCoroutine());
+        }
+    }
+
+    private IEnumerator UpdateTextCoroutine()
+    {
+        float totalTime = 0.30f;
+        float time = Time.time;
+        while (Time.time - time < totalTime)
+        {
+            float progress = (Time.time - time) / totalTime;
+            text.gameObject.transform.localScale = Vector3.Lerp(initialHealthSize * 0.75f, initialHealthSize, 1f - Mathf.Pow((1f - progress), 2));
+            yield return null;
         }
     }
 
