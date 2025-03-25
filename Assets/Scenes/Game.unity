@@ -244,6 +244,8 @@ MonoBehaviour:
   activePuzzle: {fileID: 0}
   gameState: 1
   statsPanel: {fileID: 843639698261443123, guid: c8ce35688a4269f42a69dd747677a722, type: 3}
+  shopPrefab: {fileID: 843639698261443123, guid: 286de585aed4a344492ec943cb4451e6, type: 3}
+  roundStartPrefab: {fileID: 843639698261443123, guid: d25c1829aa7796849b9779b12ffd05c0, type: 3}
   timerPrefab: {fileID: 8584739590187577024, guid: eff165e93fcca16479758bdf0218164b, type: 3}
 --- !u!4 &40300052
 Transform:

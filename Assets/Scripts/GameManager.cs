@@ -31,13 +31,13 @@ public class GameManager : MonoBehaviour, InputListener
     public GameState gameState = GameState.Round;
 
     [SerializeField]
-    private GameObject statsPanel;
+    private GameObject statsPanel, shopPrefab, roundStartPrefab;
 
     [SerializeField]
     private GameObject timerPrefab;
 
     [HideInInspector]
-    private GameObject stats, timer;
+    private GameObject stats, timer, shop, roundStart;
 
     public void OnSubmit()
     {
@@ -162,6 +162,15 @@ public class GameManager : MonoBehaviour, InputListener
         }
     }
 
+    public void OnBuffsContinue()
+    {
+        if (gameState == GameState.Buffs)
+        {
+            if (shop != null) Destroy(shop);
+            UpdateGameState(GameState.RoundStart);
+        }
+    }
+
     private void UpdateGameState(GameState state)
     {
         gameState = state;
@@ -190,6 +199,8 @@ public class GameManager : MonoBehaviour, InputListener
 
     private void OnRoundStart()
     {
+        if (roundStart != null) Destroy(roundStart);
+        roundStart = Instantiate(roundStartPrefab, GameObject.FindGameObjectWithTag("GameCanvas").transform);
         Debug.Log("round start state");
     }
 
@@ -206,18 +217,22 @@ public class GameManager : MonoBehaviour, InputListener
 
     private void OnStats()
     {
-        Destroy(timer);
+        if (timer != null) Destroy(timer);
+        if (stats != null) Destroy(stats);
         stats = Instantiate(statsPanel, GameObject.FindGameObjectWithTag("GameCanvas").transform);
         Debug.Log("stats state");
     }
 
     private void OnBuffs()
     {
+        if (shop != null) Destroy(shop);
+        shop = Instantiate(shopPrefab, GameObject.FindGameObjectWithTag("GameCanvas").transform);
         Debug.Log("buffs state");
     }
 
     private void OnDebuffs()
     {
+        //shop = Instantiate(evilShopPrefab, GameObject.FindGameObjectWithTag("GameCanvas").transform);
         Debug.Log("debuffs state");
     }
 }
