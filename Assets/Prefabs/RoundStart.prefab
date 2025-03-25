@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 484778568007870955}
   - component: {fileID: 2805020435791948493}
   - component: {fileID: 6000390863568341888}
-  - component: {fileID: 4441857726651019818}
+  - component: {fileID: 5221523881472018582}
   m_Layer: 5
   m_Name: RoundStart
   m_TagString: Untagged
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4441857726651019818
+--- !u!114 &5221523881472018582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 843639698261443123}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fc938ceae322214f9435ab686f119d9, type: 3}
+  m_Script: {fileID: 11500000, guid: dc7016b1401755140a338761387d074b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5615027933239209567
@@ -345,9 +345,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4441857726651019818}
-        m_TargetAssemblyTypeName: StatsPanel, Assembly-CSharp
-        m_MethodName: ContinueButton
+      - m_Target: {fileID: 5221523881472018582}
+        m_TargetAssemblyTypeName: RoundStartPanel, Assembly-CSharp
+        m_MethodName: OnStartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

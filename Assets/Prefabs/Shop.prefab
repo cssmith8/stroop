@@ -345,8 +345,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StatsPanel, Assembly-CSharp
+      - m_Target: {fileID: 780520510938183154}
+        m_TargetAssemblyTypeName: buffsShop, Assembly-CSharp
         m_MethodName: ContinueButton
         m_Mode: 1
         m_Arguments:

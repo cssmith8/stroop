@@ -115,15 +115,13 @@ public class GameManager : MonoBehaviour, InputListener
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("invoked", 0.5f);
-
+        Invoke("RegisterListener", 0.1f);
+        UpdateGameState(GameState.RoundStart);
     }
 
-    void invoked()
+    private void RegisterListener()
     {
         InputManager.instance.RegisterListener(this);
-        activePuzzle = PuzzleCreator.instance.CreatePuzzle();
-        CreateTimer();
     }
 
     private void CreateTimer(float seconds = 10f)
@@ -171,6 +169,14 @@ public class GameManager : MonoBehaviour, InputListener
         }
     }
 
+    public void OnRoundStartClicked() {
+        if (gameState == GameState.RoundStart)
+        {
+            if (roundStart != null) Destroy(roundStart);
+            UpdateGameState(GameState.Round);
+        }
+    }
+
     private void UpdateGameState(GameState state)
     {
         gameState = state;
@@ -206,6 +212,8 @@ public class GameManager : MonoBehaviour, InputListener
 
     private void OnRound()
     {
+        activePuzzle = PuzzleCreator.instance.CreatePuzzle();
+        CreateTimer();
         Debug.Log("round state");
     }
 
