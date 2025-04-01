@@ -24,6 +24,11 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
         anchor = transform.parent.gameObject;
     }
 
+    public void SetBuff(Buff b)
+    {
+        buff = b;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -109,6 +114,12 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
         transform.SetParent(anchor.transform);
     }
 
+    public void SetAnchor(GameObject a)
+    {
+        anchor = a;
+        transform.SetParent(anchor.transform);
+    }
+
     public void OnEndDrag()
     {
         BuffSidebar.instance.rearranging = false;
@@ -116,6 +127,11 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
     }
 
     public void AfterSwapAnchor()
+    {
+        StartCoroutine(ReturnToAnchor());
+    }
+
+    public void BeginReturnToAnchor()
     {
         StartCoroutine(ReturnToAnchor());
     }
@@ -134,6 +150,6 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
 
     public void PlayAnimation()
     {
-        Debug.Log("Play Animation");
+        Debug.Log("Buff played animation");
     }
 }

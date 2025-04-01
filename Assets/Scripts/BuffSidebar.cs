@@ -15,7 +15,7 @@ public class BuffSidebar : MonoBehaviour
 
     private List<GameObject> buffAnchors = new();
 
-    public bool rearranging = false;
+    [HideInInspector] public bool rearranging = false;
 
 
     // Start is called before the first frame update
@@ -35,14 +35,6 @@ public class BuffSidebar : MonoBehaviour
             buffAnchors.Add(child.gameObject);
         }
         UpdateAnchors();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A)) AddAnchor();
-        if (Input.GetKeyDown(KeyCode.R)) RemoveAnchor();
-
     }
 
     public GameObject GetAnchor(int index)
@@ -77,16 +69,17 @@ public class BuffSidebar : MonoBehaviour
         return null;
     }
 
-    private void AddAnchor()
+    public GameObject AddAnchor()
     {
         GameObject newAnchor = Instantiate(buffAnchor, anchors.transform);
         buffAnchors.Add(newAnchor);
         newAnchor.transform.SetParent(anchors.transform);
         newAnchor.transform.localPosition = Vector3.zero;
         UpdateAnchors();
+        return newAnchor;
     }
     
-    private void RemoveAnchor()
+    public void RemoveAnchor()
     {
         if (buffAnchors.Count > 0)
         {
