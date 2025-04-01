@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class buffsShop : MonoBehaviour
 {
-    [SerializeField] private GameObject anchor;
-    [SerializeField] private GameObject buffDisplayPrefab;
+    [SerializeField] private GameObject buffAnchor, chipAnchor;
+    [SerializeField] private GameObject buffDisplayPrefab, chipPrefab;
 
-    private GameObject activeBuffDisplay;
+    private GameObject activeBuffDisplay, activeChip;
 
     // Start is called before the first frame update
     void Start()
     {
-        activeBuffDisplay = Instantiate(buffDisplayPrefab, anchor.transform.position, Quaternion.identity, anchor.transform);
+        activeBuffDisplay = Instantiate(buffDisplayPrefab, buffAnchor.transform.position, Quaternion.identity, buffAnchor.transform);
+        activeChip = Instantiate(chipPrefab, chipAnchor.transform.position, Quaternion.identity, chipAnchor.transform);
     }
 
     public void ContinueButton()
@@ -24,8 +25,14 @@ public class buffsShop : MonoBehaviour
     {
         GameObject anchor = BuffSidebar.instance.AddAnchor();
         BuffDisplay active = activeBuffDisplay.GetComponent<BuffDisplay>();
+        active.SetDraggable(true);
         active.SetAnchor(anchor);
         active.BeginReturnToAnchor();
         RunProgression.instance.AddBuff(active.buff);
+    }
+
+    public void ClaimChipButton()
+    {
+        activeChip.GetComponent<Chip>().SetDraggable(true);
     }
 }

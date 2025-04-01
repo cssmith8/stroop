@@ -21,7 +21,13 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
     {
         drag = GetComponent<Drag>();
         drag.RegisterListener(this);
+        drag.draggable = false;
         anchor = transform.parent.gameObject;
+    }
+
+    public void SetDraggable(bool value)
+    {
+        drag.draggable = value;
     }
 
     public void SetBuff(Buff b)
@@ -46,7 +52,8 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
         DestroyDesc();
     }
 
-    private void CreateDesc() {
+    private void CreateDesc()
+    {
         if (activeDesc == null)
         {
             activeDesc = Instantiate(descPrefab, transform.GetChild(0).position, Quaternion.identity);

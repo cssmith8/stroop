@@ -57,6 +57,21 @@ public class Buff
         return count;
     }
 
+    public bool AddUpgrade(Upgrade type)
+    {
+        if (upgrades.Count < 3)
+        {
+            upgrades.Add(type);
+            return true;
+        }
+        return false;
+    }
+
+    public int TotalUpgrades()
+    {
+        return upgrades.Count;
+    }
+
     public virtual void OnSubmit() { }
     public virtual void OnReject() { }
     public virtual void OnThird() { }
