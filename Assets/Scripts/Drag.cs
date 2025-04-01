@@ -15,7 +15,7 @@ public class Drag : MonoBehaviour, IDragHandler
     private Canvas canvas;
     private bool isDraggingNow = false;
     public bool draggable = true;
-    private bool draggablitiyPaused = false;
+    private bool draggabilityPaused = false;
     private RectTransform rectTransform;
     private List<DragListener> listeners = new();
 
@@ -43,17 +43,17 @@ public class Drag : MonoBehaviour, IDragHandler
 
     public void PauseDraggability()
     {
-        draggablitiyPaused = true;
+        draggabilityPaused = true;
     }
 
     public void ResumeDraggability()
     {
-        draggablitiyPaused = false;
+        draggabilityPaused = false;
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
-        if (draggable && !draggablitiyPaused)
+        if (draggable && !draggabilityPaused)
         {
             if (!isDraggingNow)
             {
