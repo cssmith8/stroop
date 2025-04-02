@@ -12,7 +12,7 @@ public class SampleBuff : Buff
     public override string GetDescription()
     {
         string value = "1";
-        switch (NumUpgrades(Upgrade.RED))
+        switch (NumUpgrades(Upgrade.BLUE))
         {
             case 1:
                 value = "2";
@@ -24,7 +24,7 @@ public class SampleBuff : Buff
                 value = "4";
                 break;
         }
-        return "Heals you for " + RedWord(value) + " health upon submission.";
+        return "Heals you for " + BlueWord(value) + " health upon submission.";
     }
 
     public override void OnSubmit()

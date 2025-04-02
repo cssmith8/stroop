@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class buffsShop : MonoBehaviour
+public class BuffsShop : MonoBehaviour
 {
     [SerializeField] private GameObject buffAnchor, chipAnchor;
     [SerializeField] private GameObject buffDisplayPrefab, chipPrefab;

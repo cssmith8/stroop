@@ -39,6 +39,21 @@ public class Buff
         return "<color=#0000ff>" + word + "</color>";
     }
 
+    public static Color UpgradeToColor(Upgrade upgrade)
+    {
+        switch (upgrade)
+        {
+            case Upgrade.RED:
+                return Color.red;
+            case Upgrade.GREEN:
+                return Color.green;
+            case Upgrade.BLUE:
+                return Color.blue;
+            default:
+                return Color.white;
+        }
+    }
+
     protected void PlayAnimation()
     {
         if (display) display.PlayAnimation();

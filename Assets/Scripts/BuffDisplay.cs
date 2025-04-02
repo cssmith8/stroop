@@ -62,6 +62,7 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
             activeDesc.transform.localScale = Vector3.one;
 
             activeDesc.GetComponent<BuffDescription>().SetText(buff.GetDescription());
+            activeDesc.GetComponent<BuffDescription>().SetChips(buff.upgrades);
         }
     }
 
