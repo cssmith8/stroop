@@ -17,12 +17,13 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         drag = GetComponent<Drag>();
         drag.RegisterListener(this);
         drag.draggable = false;
         anchor = transform.parent.gameObject;
+        SetBuff(buff);
     }
 
     public void SetDraggable(bool value)
@@ -33,6 +34,7 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
     public void SetBuff(Buff b)
     {
         buff = b;
+        buff.SetDisplay(this);
     }
 
     // Update is called once per frame
@@ -62,6 +64,7 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
             activeDesc.transform.localScale = Vector3.one;
 
             activeDesc.GetComponent<BuffDescription>().SetText(buff.GetDescription());
+            activeDesc.GetComponent<BuffDescription>().SetTitle(buff.name);
             activeDesc.GetComponent<BuffDescription>().SetChips(buff.upgrades);
         }
     }
@@ -158,6 +161,17 @@ public class BuffDisplay : MonoBehaviour, DragListener, IPointerEnterHandler, IP
 
     public void PlayAnimation()
     {
-        Debug.Log("Buff played animation");
+        StartCoroutine(Animate());
+    }
+
+    private IEnumerator Animate() {
+        float strength = 20f;
+        float startTime = Time.time;
+        while (Time.time - startTime < 0.5f) {
+            float t = Time.time - startTime;
+            transform.eulerAngles = new Vector3(0f, 0f, strength * Mathf.Sin(Mathf.PI * Mathf.PI * t) * (0.5f - t));
+            yield return null;
+        }
+
     }
 }

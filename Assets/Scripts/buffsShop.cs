@@ -13,6 +13,7 @@ public class BuffsShop : MonoBehaviour
     void Start()
     {
         activeBuffDisplay = Instantiate(buffDisplayPrefab, buffAnchor.transform.position, Quaternion.identity, buffAnchor.transform);
+        activeBuffDisplay.GetComponent<BuffDisplay>().SetBuff(new SampleBuff());
         activeChip = Instantiate(chipPrefab, chipAnchor.transform.position, Quaternion.identity, chipAnchor.transform);
     }
 

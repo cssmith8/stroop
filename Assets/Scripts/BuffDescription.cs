@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class BuffDescription : MonoBehaviour
 {
     [SerializeField]
-    private GameObject descText;
+    private GameObject descText, titleText;
 
     [SerializeField]
     private GameObject chipSlot1, chipSlot2, chipSlot3;
@@ -22,6 +22,11 @@ public class BuffDescription : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetTitle(string title)
+    {
+        titleText.GetComponent<TMP_Text>().text = title;
     }
 
     public void SetText(string text)

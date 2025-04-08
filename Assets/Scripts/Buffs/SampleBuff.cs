@@ -32,6 +32,7 @@ public class SampleBuff : Buff
         //Debug.Log("Sample Buff On Submit");
         int value = NumUpgrades(Upgrade.RED);
         HealthManager.instance.ChangeHealth(1 + value);
+        display.PlayAnimation();
     }
 
     public override void OnReject()

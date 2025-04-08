@@ -22,7 +22,7 @@ public class Buff
 
     public List<Upgrade> upgrades = new List<Upgrade>();
 
-    private BuffDisplay display;
+    protected BuffDisplay display;
 
     public static string RedWord(string word)
     {
@@ -70,6 +70,11 @@ public class Buff
             }
         }
         return count;
+    }
+
+    public void SetDisplay(BuffDisplay display)
+    {
+        this.display = display;
     }
 
     public bool AddUpgrade(Upgrade type)

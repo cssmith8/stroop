@@ -55,7 +55,7 @@ public class Chip : MonoBehaviour, DragListener
         }
 
         BuffDisplay other = BuffSidebar.instance.GetBuffDisplayOnAnchor(closestAnchor);
-        if (other == null || other.buff.TotalUpgrades() >= 3)
+        if (other == null || other.buff.TotalUpgrades() >= 3 || minDistance > 1f)
         {
             StartCoroutine(GoToGameObject(transform.parent.gameObject));
         }
@@ -67,10 +67,9 @@ public class Chip : MonoBehaviour, DragListener
 
     private void AttachToBuff(GameObject display)
     {
-        StartCoroutine(GoToGameObject(display));
         bool added = display.GetComponent<BuffDisplay>().buff.AddUpgrade(chipType);
         if (!added) Debug.Log("Failed to apply chip");
-        Destroy(gameObject);
+        StartCoroutine(GoToBuff(display));
     }
 
     IEnumerator GoToGameObject(GameObject a)
@@ -85,6 +84,21 @@ public class Chip : MonoBehaviour, DragListener
         }
         transform.position = a.transform.position;
         drag.ResumeDraggability();
+    }
+
+    IEnumerator GoToBuff(GameObject a)
+    {
+        //go to the display
+        drag.PauseDraggability();
+        transform.SetParent(a.transform);
+        while (Vector2.Distance(transform.position, a.transform.position) > 0.02f)
+        {
+            transform.position = Vector2.Lerp(transform.position, a.transform.position, Mathf.Clamp(Time.deltaTime * 8f, 0f, 1f - Time.deltaTime * 2f) + Time.deltaTime * 2f);
+            yield return null;
+        }
+        transform.position = a.transform.position;
+        drag.ResumeDraggability();
+        Destroy(gameObject);
     }
 
     public void DuringDragUpdate()
